@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Journey Beyond Just a Summit</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Caveat:wght@400;600;700&family=IM+Fell+English:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #f5ede0;
+    --warm-paper: #f0e4cc;
+    --aged: #e8d5b0;
+    --ink: #1a1208;
+    --faded-ink: #3d2e1a;
+    --rust: #b5451b;
+    --gold: #c9963c;
+    --soft-gold: #e8c97a;
+    --sage: #6b7c5c;
+    --dusty-blue: #5a7a8c;
+    --polaroid-white: #faf7f0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'IM Fell English', Georgia, serif;
+    color: var(--ink);
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* GRAIN OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.6;
+  }
+
+  /* PAPER TEXTURE */
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    position: relative;
+  }
+
+  /* TAPE ELEMENTS */
+  .tape {
+    position: absolute;
+    width: 80px;
+    height: 22px;
+    background: rgba(200, 180, 130, 0.45);
+    border-radius: 2px;
+    transform: rotate(-3deg);
+  }
+
+  /* HEADER SECTION */
+  .header-zone {
+    position: relative;
+    text-align: center;
+    padding: 80px 20px 60px;
+    border-bottom: 2px solid var(--faded-ink);
+    margin-bottom: 70px;
+  }
+
+  .subtitle-stamp {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 7vw, 72px);
+    font-weight: 900;
+    line-height: 1.0;
+    color: var(--ink);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .main-title em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  .header-sub {
+    font-family: 'Caveat', cursive;
+    font-size: 22px;
+    color: var(--faded-ink);
+    margin-top: 14px;
+    transform: rotate(-1deg);
+    display: inline-block;
+  }
+
+  .header-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 28px auto;
+  }
+
+  .opening-quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--faded-ink);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* STICKY NOTE */
+  .sticky {
+    background: #f9e87a;
+    padding: 14px 18px;
+    font-family: 'Caveat', cursive;
+    font-size: 17px;
+    color: #2a2000;
+    transform: rotate(2.5deg);
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.18);
+    display: inline-block;
+    max-width: 240px;
+    line-height: 1.5;
+    position: absolute;
+  }
+
+  .sticky.blue {
+    background: #b8daf0;
+    color: #0a1a2e;
+  }
+
+  .sticky.pink {
+    background: #f7c5c5;
+    color: #2e0a0a;
+  }
+
+  .sticky.green {
+    background: #c5e8b0;
+    color: #0a2010;
+  }
+
+  /* SECTION HEADERS */
+  .section {
+    margin-bottom: 70px;
+    position: relative;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 4.5vw, 42px);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 24px;
+    border-left: 4px solid var(--gold);
+    padding-left: 16px;
+  }
+
+  .section-title.italic { font-style: italic; }
+
+  /* BODY TEXT */
+  p {
+    font-family: 'IM Fell English', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.9;
+    color: var(--faded-ink);
+    margin-bottom: 18px;
+  }
+
+  p.lead {
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.8;
+  }
+
+  /* HANDWRITTEN CALLOUTS */
+  .handwritten {
+    font-family: 'Caveat', cursive;
+    font-size: 22px;
+    color: var(--rust);
+    transform: rotate(-1.5deg);
+    display: block;
+    margin: 28px 0;
+    line-height: 1.5;
+  }
+
+  .handwritten.big {
+    font-size: 30px;
+    font-weight: 700;
+  }
+
+  /* PULL QUOTES */
+  .pull-quote {
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding: 24px 0;
+    margin: 40px 0;
+    text-align: center;
+  }
+
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* POLAROID FRAMES */
+  .polaroid-row {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 40px 0;
+  }
+
+  .polaroid {
+    background: var(--polaroid-white);
+    padding: 14px 14px 40px;
+    box-shadow: 4px 6px 14px rgba(0,0,0,0.2);
+    position: relative;
+    max-width: 200px;
+  }
+
+  .polaroid:nth-child(1) { transform: rotate(-3deg); }
+  .polaroid:nth-child(2) { transform: rotate(1.5deg); }
+  .polaroid:nth-child(3) { transform: rotate(-1deg); }
+  .polaroid:nth-child(4) { transform: rotate(2.5deg); }
+
+  .polaroid-img {
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(135deg, #c9b99a 0%, #8a7a65 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    opacity: 0.7;
+  }
+
+  .polaroid-caption {
+    font-family: 'Caveat', cursive;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 10px;
+    color: var(--faded-ink);
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+  }
+
+  /* CHAOS LIST */
+  .chaos-list {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0;
+  }
+
+  .chaos-list li {
+    font-family: 'IM Fell English', Georgia, serif;
+    font-size: 16px;
+    color: var(--faded-ink);
+    padding: 4px 0 4px 28px;
+    position: relative;
+    line-height: 1.7;
+  }
+
+  .chaos-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-weight: bold;
+  }
+
+  /* TORN PAPER DIVIDER */
+  .torn-divider {
+    width: 100%;
+    height: 40px;
+    background: var(--warm-paper);
+    margin: 50px 0;
+    position: relative;
+    clip-path: polygon(0 0, 5% 40%, 10% 10%, 15% 55%, 20% 15%, 25% 45%, 30% 5%, 35% 50%, 40% 20%, 45% 55%, 50% 10%, 55% 45%, 60% 15%, 65% 50%, 70% 5%, 75% 40%, 80% 10%, 85% 50%, 90% 20%, 95% 55%, 100% 15%, 100% 100%, 0 100%);
+  }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box {
+    background: var(--aged);
+    border-left: 5px solid var(--rust);
+    padding: 24px 28px;
+    margin: 36px 0;
+    position: relative;
+  }
+
+  .highlight-box p {
+    margin: 0;
+    font-size: 16px;
+  }
+
+  /* BIG EMOTION TEXT */
+  .big-emotion {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 6vw, 60px);
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1.1;
+    text-align: center;
+    margin: 50px 0;
+    letter-spacing: -0.02em;
+  }
+
+  .big-emotion span {
+    color: var(--rust);
+    font-style: italic;
+  }
+
+  /* TYPEWRITER TEXT */
+  .typewriter {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--faded-ink);
+    background: rgba(0,0,0,0.04);
+    padding: 16px 20px;
+    border-radius: 2px;
+    margin: 24px 0;
+    line-height: 1.8;
+  }
+
+  /* PHOTO CAPTION */
+  .photo-placeholder {
+    background: linear-gradient(160deg, #c9b99a 0%, #9a8468 60%, #7a6550 100%);
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 36px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .photo-placeholder::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.15);
+  }
+
+  .photo-placeholder .photo-text {
+    font-family: 'Caveat', cursive;
+    font-size: 20px;
+    color: rgba(255,255,255,0.8);
+    text-align: center;
+    z-index: 1;
+    padding: 0 30px;
+    line-height: 1.5;
+  }
+
+  /* SCRAPBOOK COLUMN LAYOUT */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin: 32px 0;
+  }
+
+  @media (max-width: 640px) {
+    .two-col { grid-template-columns: 1fr; }
+    .page { padding: 40px 20px; }
+  }
+
+  /* FOOTER */
+  .article-footer {
+    text-align: center;
+    padding: 60px 20px 40px;
+    border-top: 1px solid var(--aged);
+    margin-top: 80px;
+  }
+
+  .footer-text {
+    font-family: 'Caveat', cursive;
+    font-size: 26px;
+    color: var(--rust);
+    margin-bottom: 16px;
+    transform: rotate(-1deg);
+    display: inline-block;
+  }
+
+  .footer-small {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--faded-ink);
+    opacity: 0.6;
+  }
+
+  /* FLOATING ACCENT ELEMENTS */
+  .asterisk {
+    display: inline-block;
+    color: var(--gold);
+    font-size: 24px;
+    margin: 0 6px;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .date-stamp {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--rust);
+    opacity: 0.7;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  /* INTRO MOOD SETTING */
+  .mood-paragraph {
+    font-family: 'IM Fell English', Georgia, serif;
+    font-size: 18px;
+    line-height: 2.0;
+    color: var(--faded-ink);
+    margin-bottom: 20px;
+  }
+
+  /* SECTION BREAK MARK */
+  .section-break {
+    text-align: center;
+    font-size: 22px;
+    color: var(--gold);
+    margin: 50px 0;
+    letter-spacing: 12px;
+  }
+
+  /* ANNOTATION STYLE */
+  .annotation {
+    font-family: 'Caveat', cursive;
+    font-size: 16px;
+    color: var(--sage);
+    border-left: 2px solid var(--sage);
+    padding-left: 14px;
+    margin: 20px 0;
+    font-style: normal;
+    line-height: 1.6;
+  }
+
+  /* BOLD CALLOUT */
+  strong.callout {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  /* NEWSPAPER COLUMN STYLE FOR D DAY */
+  .newspaper-col {
+    column-count: 2;
+    column-gap: 36px;
+    column-rule: 1px solid var(--aged);
+  }
+
+  @media (max-width: 640px) {
+    .newspaper-col { column-count: 1; }
+  }
+
+  /* LARGE DROP CAP */
+  .dropcap::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    float: left;
+    line-height: 0.75;
+    margin-right: 8px;
+    margin-top: 8px;
+    color: var(--rust);
+  }
+
+  /* SCRAPBOOK TAPE */
+  .tape-h {
+    display: block;
+    width: 90px;
+    height: 20px;
+    background: rgba(200, 180, 100, 0.4);
+    margin: -10px auto 20px;
+    border-radius: 2px;
+    transform: rotate(-1.5deg);
+  }
+
+  /* Timeline dot */
+  .timeline-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 28px;
+    align-items: flex-start;
+  }
+
+  .timeline-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--rust);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .timeline-line {
+    border-left: 2px dashed var(--aged);
+    padding-left: 20px;
+    margin-left: 6px;
+  }
+
+  /* animation on scroll */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header-zone fade-in">
+    <span class="subtitle-stamp">S VYASA x UNDER 25 SUMMIT</span>
+    <h1 class="main-title">The Journey <em>Beyond</em><br>Just a Summit</h1>
+    <div class="header-divider"></div>
+    <p class="opening-quote">Some things start as events. Some things end up becoming the chapter of your life you'll talk about for years.</p>
+    <span class="header-sub">written from memory, with everything we had.</span>
+  </header>
+
+
+  <!-- OPENING: OCTOBER -->
+  <section class="section fade-in">
+    <span class="date-stamp">October — The Before</span>
+    <h2 class="section-title">When Nothing Was Happening</h2>
+
+    <p class="lead dropcap">October on campus felt like standing still while the world moved somewhere else.</p>
+
+    <p>You know that feeling when the semester starts becoming one long, blurry loop? Assignments stacking. Internals creeping closer. Classes you've half-stopped paying attention to because nothing feels urgent and nothing feels exciting, just the same walls, the same timetables, the same corridors you've walked so many times they stopped registering as places and started feeling like backgrounds. That was October. That was S VYASA in October.</p>
+
+    <p>There were a few technical events happening, sure. People would glance at the posters in the corridor and keep walking. Nobody was really buzzing about anything. The campus felt tired. The students felt tired. There was a low hum of mild exhaustion running under everything, the kind that doesn't come from one bad week but from a whole semester of just... continuing.</p>
+
+    <div class="sticky" style="right: -10px; top: 60px; transform: rotate(3deg);">nothing exciting was happening. and then everything was.</div>
+
+    <p>And then someone said the words "Under 25" in a conversation somewhere, and the words didn't fade. They bounced around. They kept coming back.</p>
+
+    <p>Under 25. Here. At our college.</p>
+
+    <p>None of us could actually believe it. Under 25 was this massive thing, this cultural phenomenon that happened at big venues in big cities with huge audiences. It wasn't something that landed in a yoga university in Bengaluru. It wasn't something that found us. We found ourselves saying "wait, really?" more times than we could count. Because it genuinely felt like a cosmic mistake in the most exciting possible way.</p>
+
+    <div class="pull-quote">
+      <p>"Under 25 knowing we existed felt like being seen by someone you'd given up on being noticed by."</p>
+    </div>
+
+    <p>And then the MOU discussions started. Which meant this was real. Which meant people were in meetings. Which meant forms were being filled and signatures were being hunted and approvals were being waited on with varying levels of patience (very little patience, mostly).</p>
+
+    <p>There's a very specific kind of chaos that comes with the early stages of something big starting. You don't fully understand what you're doing yet. Nobody does. But everyone is moving fast because the energy demands it. Somebody is running to the HOD's office with papers. Somebody is sitting in the library with a laptop open trying to figure out what "student operations" even means. Somebody is on a call. Somebody is on three calls. The roles being assigned don't quite match what will actually happen later, but that doesn't matter right now because right now there is the beautiful, terrifying electricity of something BEGINNING.</p>
+
+    <p>Students who had never collaborated were suddenly in the same WhatsApp group. People who sat in different rows were suddenly looking at the same Google Sheet. The sleepy October campus was cracking open. Not dramatically. Just enough. Just a sliver of light coming through, and all of us leaning toward it.</p>
+
+    <span class="handwritten">we didn't know what we were getting into. we just knew we wanted in.</span>
+
+  </section>
+
+  <div class="torn-divider"></div>
+
+  <!-- FIRST CALL WITH KASIS -->
+  <section class="section fade-in">
+    <span class="date-stamp">The First Real Moment</span>
+    <h2 class="section-title italic">The Google Meet That Changed Everything</h2>
+
+    <p class="lead">The first call with Kasis was not a work call. It just wasn't.</p>
+
+    <p>You know how some calls feel like you're being interviewed, like you're supposed to have the right answers and say the right things and use the right words? This was nothing like that. It was immediately warm. Immediately real. People were laughing within the first five minutes. Someone made a joke and it landed and suddenly the Zoom grid of faces felt less like a formal meeting and more like a group of people who were just genuinely excited to be on the same call together.</p>
+
+    <div class="highlight-box">
+      <p>Kasis had this way of making big things feel possible without making them feel intimidating. She spoke about the summit with this easy confidence, this natural enthusiasm, and it was contagious. You couldn't hear her talk about it and stay unmoved. You just couldn't.</p>
+    </div>
+
+    <p>We talked. We planned. We laughed. People jumped in with ideas and the ideas were received with actual warmth instead of polite silence. There was none of that stiff energy of a college event committee meeting where someone takes meticulous minutes and someone else suggests something and gets a half-enthusiastic nod. This felt different. This felt like the beginning of something that actually had a heartbeat.</p>
+
+    <p>And somewhere in that call, the summit stopped being a thing that might happen and became a thing that we were going to make happen. That's the shift. That's the exact moment the switch flipped. It wasn't a big announcement. It wasn't a grand statement. It was just a group of excited people on a Google Meet at an odd hour, realizing they were in this together.</p>
+
+    <span class="handwritten big" style="text-align:center; display:block;">That call made it real.</span>
+
+    <p>After we hung up, people stayed in the chat for a bit. Just vibing. Sending memes. Expressing feelings with exclamation marks because nothing else was sufficient. The summit had a face now, and that face was warm and laughing and it felt safe.</p>
+
+  </section>
+
+
+  <!-- CREW INTERVIEWS -->
+  <section class="section fade-in">
+    <span class="date-stamp">The Choosing</span>
+    <h2 class="section-title">We Were Not Just Choosing Crew Members</h2>
+
+    <div class="polaroid-row">
+      <div class="polaroid">
+        <div class="polaroid-img">🎬</div>
+        <div class="polaroid-caption">day 1. interviews.</div>
+      </div>
+      <div class="polaroid">
+        <div class="polaroid-img">📋</div>
+        <div class="polaroid-caption">forms. more forms.</div>
+      </div>
+      <div class="polaroid">
+        <div class="polaroid-img">🎤</div>
+        <div class="polaroid-caption">convincing them to join</div>
+      </div>
+    </div>
+
+    <p class="lead">The recruitment reels went out. The WhatsApp forwards started. The Google Form link got passed around like a secret.</p>
+
+    <p>Two days of interviews. Which sounds very official and organized, and the intent was certainly there, but the reality was messier and more human and honestly more memorable. People came in nervous. People came in overconfident. People came in not entirely sure why they wanted to be part of this but knowing they did. And we sat across from them trying to figure out who would still be standing at the end of something we hadn't even started yet.</p>
+
+    <p>The convincing was real. Not everyone needed convincing, but some people did. "My attendance." "My parents." "My internals are next month." And we were sitting there going, listen, we understand, but also this is going to be something you'll remember, and somehow that argument worked more often than it should have.</p>
+
+    <span class="handwritten">fighting with faculty for attendance was its own full-time job.</span>
+
+    <p>Marketing teams. Content teams. Operations. Art. Experience centers. Backstage. Registration. Each department got built slowly, carefully, with a lot of "okay wait, who's good at what?" energy. And the roles were assigned with the best intentions and then promptly shuffled around because that's what actually happens when you build something in real time.</p>
+
+    <div class="pull-quote">
+      <p>"We were not just choosing crew members anymore.<br>We were choosing the people we would survive this journey with."</p>
+    </div>
+
+    <p>That sentence sounds dramatic but it wasn't an exaggeration. The crew you pick at the beginning of something like this becomes your entire world for the duration. Your weird work family. The people you'll text at 11 PM about logistics. The people you'll share stress meals with. The people who will understand a very specific type of exhaustion that nobody outside of this bubble will quite get. We didn't know all of that yet. But we were already building it.</p>
+
+  </section>
+
+  <div class="section-break">* * *</div>
+
+
+  <!-- SUMMIT TIMELINE -->
+  <section class="section fade-in">
+    <span class="date-stamp">The Slow Burn</span>
+    <h2 class="section-title">One and a Half Months</h2>
+
+    <p class="lead">Most summits are short sprints. Ours was a marathon that somehow turned into a lifestyle.</p>
+
+    <p>When you're in it, you don't clock the time properly. You just know that the summit is always there, always present, always the next thing on the list. Your days stop being organized around classes and start being organized around the summit. Pre-event today. Design review tomorrow. Meeting with the Under 25 team this week. One and a half months of that, slow and steady and relentless, and by the time you reach the other side you realize it wasn't just time that passed. Something in you changed. Not dramatically. Just incrementally. The way people who go through something together always quietly change each other.</p>
+
+    <div class="typewriter">
+      week 1: understanding roles, figuring out what "operations" means<br>
+      week 2: the chaos starts becoming structure (kind of)<br>
+      week 3: pre-events begin. things get REAL.<br>
+      week 4: recruitment, reels, posters, everything at once<br>
+      week 5: the flash mob. the peak.<br>
+      week 6: t minus everything.<br>
+      week 7: d day. and then. silence.
+    </div>
+
+    <p>Strangers became teammates became friends became the people you'd genuinely miss when it was over. That doesn't happen in a weekend. It takes weeks of shared stress and late calls and "wait who's handling the backdrop" messages and someone showing up for someone else in a small way and those small ways adding up to something real. One and a half months gave us that. And we didn't appreciate it fully until it was gone.</p>
+
+  </section>
+
+
+  <!-- JAM SESSION -->
+  <section class="section fade-in">
+    <span class="date-stamp">The First Spark</span>
+    <h2 class="section-title italic">The Jam Session</h2>
+
+    <p class="lead">Music has this thing it does to shared spaces. It opens them up. It makes people who have nothing in common suddenly have something.</p>
+
+    <p>The first floor stage. Music echoing through the building in a way that bounced off walls and reached places it wasn't supposed to and pulled people in from corridors and classrooms. Students gathered without announcement. Nobody put out a notice saying "please come and feel the beginning of something." They just came, because sound carries and curiosity is stronger than inertia.</p>
+
+    <p>People sang. People cheered for people they didn't know singing songs they knew. Someone started something and someone else picked it up. There was that specific kind of crowd energy that can't be manufactured, that only happens when it's genuinely spontaneous, when people are actually feeling it and not performing feeling it. The campus, which had been tired and quiet for weeks, was suddenly doing something it hadn't done in a while.</p>
+
+    <p>It was breathing.</p>
+
+    <div class="sticky pink" style="position:relative; margin: 30px auto; display:block; transform:rotate(-2deg); max-width:300px;">This was the first moment where the campus felt different. Not like an institution. Like a place where something was happening.</div>
+
+    <p>Looking back, the jam session was the first proof that this would work. Not the MOU. Not the planning meetings. Not the Google Form. The moment people gathered around music without being told to and stayed because they wanted to. That was the first real sign. The campus wanted this too. It just needed to be shown what it was waiting for.</p>
+
+  </section>
+
+  <div class="torn-divider"></div>
+
+
+  <!-- POSTER PHASE -->
+  <section class="section fade-in">
+    <span class="date-stamp">The Campaign</span>
+    <h2 class="section-title">Our Social Media Was Booming</h2>
+
+    <div class="two-col">
+      <div>
+        <p>The art team was making things that made people stop. Meme posters around campus that made you actually laugh and then also remember the event. That's harder than it sounds. Charts being painted by hand. Handwritten details on corkboards. The kind of effort that shows when you look at it and that you can't entirely replicate with Canva.</p>
+
+        <span class="handwritten">our art was arting.</span>
+
+        <p>The content team was editing reels at weird hours. Those little 30-second things that somehow carry the entire energy of something bigger. The Instagram stories going up. The engagement ticking. People who didn't know us yet getting curious.</p>
+      </div>
+      <div>
+        <p>Classroom promotions. Walking into someone else's class and doing a 60-second pitch with everything you had, hoping the professor let you finish before politely asking you to leave. Running through corridors between events. Sub-teams forming within teams because the work had gotten too big for the original structure to hold.</p>
+
+        <p>Brainstorming sessions that turned into debates that turned into laughter that turned back into work somehow. Ideas being thrown at walls to see what stuck. Some things stuck. Some things gloriously didn't.</p>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      <p>"The summit slowly stopped feeling like just an event.<br>It started feeling like <em>ours.</em>"</p>
+    </div>
+
+    <p>That possessiveness is everything. When the people building something start feeling ownership over it, when they start defending it and talking about it and dreaming about it, that's when you know it's going to land right. We were all in. Completely, unreservedly, sometimes irrationally in. And the campus was starting to feel it too.</p>
+
+  </section>
+
+
+  <!-- TALENT HUNT -->
+  <section class="section fade-in">
+    <span class="date-stamp">Pre-Event One</span>
+    <h2 class="section-title">The Talent Hunt</h2>
+
+    <p class="lead">The seminar hall was packed. Properly packed. Not "decent turnout" packed. Packed packed.</p>
+
+    <p>Performers on stage doing what they do, and an audience doing what good audiences do, which is feel things and express those feelings loudly. Music. Dance. Spoken word. That weird backstage energy where everyone is simultaneously panicking and trying to appear calm and occasionally someone forgets something crucial and there's a thirty-second sprint of pure adrenaline before it gets resolved and everyone breathes again.</p>
+
+    <p>The laughter in the crowd. The cheering between performances. People who came not knowing they'd stay as long as they did staying as long as they did. Under 25 was becoming a familiar word on campus. Students were recognizing it, repeating it, associating it with something good.</p>
+
+    <div class="highlight-box">
+      <p>And then Kasis walked in as Student Ops and the energy in the room did this thing it does when someone with genuine presence enters a space. It shifted. Not dramatically. Just noticeably. She moved through the chaos of it with this grounded, easy confidence, and you could watch people around her relax slightly, recalibrate, settle into the rhythm of the event. That kind of energy is rare and it matters enormously when things are still being figured out.</p>
+    </div>
+
+    <p class="lead" style="text-align:center; font-size:18px;">Kasis, thank you. Not just for what you did officially, but for how you made people feel like they could actually do this.</p>
+
+  </section>
+
+
+  <!-- FLASH MOB -->
+  <section class="section fade-in">
+    <span class="date-stamp">The Legend</span>
+    <h2 class="section-title">The Flash Mob</h2>
+
+    <span class="tape-h"></span>
+
+    <p class="lead dropcap">If there is one thing from this whole journey that becomes legend, it's the flash mob. It just is.</p>
+
+    <p>The buildup started days before. The banner was hidden. The announcement was being planned with the seriousness of a military operation. Crew members walking around with this very specific energy of people who know something enormous is about to happen and cannot say anything about it. The anticipation was physical.</p>
+
+    <p>The morning of it, the chaos backstage was spectacular. People forgetting their marks. People forgetting their departments and just becoming one moving, excited mass of humans trying to make something happen. Someone dressed as Amitabh Bachchan for the announcements, and if that sentence doesn't communicate the level of commitment and beautiful absurdity of this crew, nothing will.</p>
+
+    <div class="annotation">
+      backstage: organized chaos. everyone was everywhere. nobody was where they were supposed to be. everything somehow worked anyway.
+    </div>
+
+    <p>And then it started. The music. That first beat dropping and the crowd beginning to gather because you can't hear that energy and stay still. People coming out of buildings. People stopping mid-walk. Phones going up everywhere, that forest of screens that means something is happening that people want to remember. The area filling up faster than anyone predicted. The dancing beginning and the crowd reacting and the whole thing building and building.</p>
+
+    <p>Crew members who had spent weeks thinking about their specific departments forgot those departments entirely. Everyone was just there. One thing. One moment. People screaming. People dancing who didn't plan to dance. People filming things they'd watch ten times later that night.</p>
+
+    <div class="big-emotion">
+      And then <span>the banner dropped.</span>
+    </div>
+
+    <p>The moment the banner dropped, everyone knew. Under 25 had officially arrived. Not just as a name on a poster or a form link or a Google Meet invite. Arrived arrived. Big, loud, real, undeniable. The sound that went up from that crowd is not the kind of sound you hear in formal college events. It was the kind of sound people make when something surprises them in the best possible way. Raw. Genuine. Loud.</p>
+
+    <p>The campus that had been dull and routine and tired in October was screaming in the afternoon sun. And for a few minutes, everything else stopped existing. Just the music and the crowd and the banner and the people who had worked for weeks to make this exact moment happen.</p>
+
+    <span class="handwritten big" style="text-align:center; display:block;">it was legendary. we all felt it. no one said it out loud because we didn't have to.</span>
+
+  </section>
+
+  <div class="section-break">* * *</div>
+
+
+  <!-- T MINUS ONE -->
+  <section class="section fade-in">
+    <span class="date-stamp">The Night Before</span>
+    <h2 class="section-title">T Minus One</h2>
+
+    <p class="lead">After the flash mob, something changed. The excitement didn't go away but reality moved in alongside it.</p>
+
+    <p>Tomorrow. Tomorrow was the summit. The thing we'd been building toward for one and a half months. And the crew, which had been riding this incredible high, suddenly looked at each other and felt the weight of it.</p>
+
+    <div class="timeline-line">
+      <div class="timeline-item">
+        <div>
+          <p style="margin-bottom:6px;"><strong class="callout">Under 25 team arriving.</strong> Real, official, the people who do this for a living, walking onto our campus with setups and equipment and an energy that said "we've done this many times" and somehow made us both more confident and more nervous simultaneously.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div>
+          <p style="margin-bottom:6px;"><strong class="callout">Experience centers getting built.</strong> Things being carried. Artwork being shifted. Registration counters being assembled. Every corner of the venue transforming slowly.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div>
+          <p style="margin-bottom:6px;"><strong class="callout">Final briefings.</strong> Going through it all again. Who handles what. What's the flow. What do we do if this goes wrong. What do we do if that goes wrong. The operational planning taking on a new seriousness.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div>
+          <p style="margin-bottom:6px;"><strong class="callout">The RSVP number.</strong> The original target was 800. We had crossed 1200. The summit was basically sold out before the main day even arrived. That number was exciting and terrifying in equal, perfect measure.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p>The pressure was very present. Not the paralyzing kind. The clarifying kind. The kind that makes you focus. The kind that makes you stop overthinking and start just doing. We had built this. Tomorrow we had to run it.</p>
+    </div>
+
+    <p>Some crew members went home that night and couldn't sleep. Some stayed at the venue until they got chased out. Some sat in small clusters talking about everything and nothing. The night before is its own kind of feeling. You've done everything you can do. Now you just have to show up.</p>
+
+  </section>
+
+
+  <!-- D DAY -->
+  <section class="section fade-in">
+    <span class="date-stamp">Summit Day</span>
+    <h2 class="section-title">D Day</h2>
+
+    <p class="lead">The morning arrived and everyone arrived with it. Early. Some of them embarrassingly early. The kind of early that comes not from discipline but from not being able to sleep anyway.</p>
+
+    <div class="newspaper-col">
+      <p>The stage setup was not finished. This is not a criticism. This is just the reality of D Day for any event of this scale: things are always still in progress when the first people arrive. Props being carried by people who did not sign up to carry props but are carrying them anyway because they are there and the props need to move. Chairs being arranged. Artwork being shifted three different times until it's finally right.</p>
+
+      <p>And then: there are not enough chairs. This is discovered at a moment when there is no ideal moment to discover this. The RSVP numbers had been large but somehow the reality of 1200 people physically existing in a space is different from 1200 as a number on a spreadsheet. Crew members sprint. Chairs appear from somewhere. Crisis is contained, just barely.</p>
+
+      <p>The crowd starts coming in and they don't stop. Security is doing its best and then doing more than its best. Crowd management becomes less of a role and more of a full-body experience. The gate situation is developing in real time and every plan that was made for it is being adapted because the reality is always different from the plan.</p>
+
+      <p>Backstage is its own universe. People running. Speakers arriving. Setup adjustments at the last second. A crew member handling three things at once and asking for someone to handle a fourth. Another crew member stepping in for someone who's been pulled somewhere else. The seamless visible version of an event is built on a completely unseamless invisible version and we were living inside the invisible version.</p>
+
+      <p>Things went wrong. Not catastrophically. Not in ways that broke the event. But in ways that tested people. Crowd problems. Emotional pressure from watching something you built encounter friction. The specific stress of seeing something go differently than you planned and having to adapt in real time with no pause button available.</p>
+
+      <p>But. The crew did not give up. That is the thing that needs to be said plainly, without decoration. People who were exhausted kept going. People who were scared kept going. People who were overwhelmed looked at each other and decided to keep going anyway. Someone would be on the edge and another crew member would appear. Not dramatically. Just appear, and take something off the load, and the edge would recede.</p>
+    </div>
+
+    <div class="pull-quote">
+      <p>"The effort was extraordinary.<br>Not because everything went perfectly.<br>Because it absolutely didn't, and they kept going anyway."</p>
+    </div>
+
+    <p>The summit ran. Speakers took the stage. The audience that had been a logistical challenge was now an audience, real and engaged and present. The experience centers filled with people. The energy that had been building for one and a half months was releasing into the air of the venue and the venue held it.</p>
+
+    <span class="handwritten big" style="text-align:center; display:block;">It was chaotic. It was imperfect. It was ours.</span>
+
+    <p>We did not build a flawless machine. We built something human, and human things have rough edges, and the rough edges are part of it. The effort behind those edges, the absolute refusal to stop trying, that is the part that matters. That is the part worth romanticizing. Not the outcome. The effort.</p>
+
+  </section>
+
+
+  <!-- ENDING -->
+  <section class="section fade-in">
+    <span class="date-stamp">After</span>
+    <h2 class="section-title italic">When It Was Over</h2>
+
+    <p class="lead">The DJ finished. The music cut. The lights shifted.</p>
+
+    <p>Students filed out in ones and twos and small groups, carrying whatever they'd picked up that day, talking, tired, not knowing they were part of something a student crew had poured months into. They left the way audiences always leave. The venue became progressively quieter until it was that particular empty that spaces get after they've held a lot of people.</p>
+
+    <p>And then the crew sat down together.</p>
+
+    <p>There is no other way to describe the final debrief except to say it felt like the end of a very long, very beautiful, very exhausting movie. People who had been in operational mode all day suddenly weren't in operational mode anymore and didn't quite know what to do with their hands or their energy or their feelings.</p>
+
+    <div class="highlight-box">
+      <p>Someone started speaking. Then someone else. Honest, unscripted words about what this had meant and how hard it had been and how glad they were to have been part of it. The clapping was the kind of clapping that comes from somewhere real. Not polite. Real. And people cried, because of course people cried, because you don't spend one and a half months building something with a group of people and then reach the end of it without feeling something enormous in your chest.</p>
+    </div>
+
+    <p>The hugs. The specific silence that comes after weeks of constant noise. People sitting without needing to say anything because they were all feeling the same thing and somehow that was enough.</p>
+
+    <p>"It's over," someone said.</p>
+
+    <p>And it was. It really was.</p>
+
+    <p>No more planning calls to look forward to. No more pre-events to build. No more late-night logistics texts that you'd groan at and respond to anyway. No more chaos that was secretly the most alive you'd felt in years. No more excuse to see these specific people in this specific configuration doing this specific thing.</p>
+
+    <div class="pull-quote">
+      <p>"The hardest part was not the stress.<br>The hardest part was knowing we would never experience this exact version of life again."</p>
+    </div>
+
+    <p>That's the bittersweet thing about a chapter. While you're in it, you want it to be longer. And when it ends, you realize you knew that all along somewhere, and that's why you were holding on so tightly. Not just to the summit. To the feeling. To the version of yourself that existed inside of it.</p>
+
+    <p>We survived something beautiful together. That's not a small thing. That's not a footnote in a college career. That is the kind of thing you carry forward. The kind of memory that doesn't fade but crystallizes, gets sharper over time, becomes more precious with distance.</p>
+
+    <span class="handwritten big" style="text-align:center; display:block; margin-top:50px;">This was not just a summit.<br>This was a phase of life we accidentally fell in love with.</span>
+
+    <div class="polaroid-row" style="margin-top:60px;">
+      <div class="polaroid">
+        <div class="polaroid-img" style="background: linear-gradient(135deg, #8a6a4a, #6a4a2a);">✨</div>
+        <div class="polaroid-caption">october. the beginning.</div>
+      </div>
+      <div class="polaroid">
+        <div class="polaroid-img" style="background: linear-gradient(135deg, #4a6a8a, #2a4a6a);">🎵</div>
+        <div class="polaroid-caption">the jam session.</div>
+      </div>
+      <div class="polaroid">
+        <div class="polaroid-img" style="background: linear-gradient(135deg, #8a4a4a, #6a2a2a);">🎉</div>
+        <div class="polaroid-caption">the flash mob.</div>
+      </div>
+      <div class="polaroid">
+        <div class="polaroid-img" style="background: linear-gradient(135deg, #4a8a4a, #2a6a2a);">💙</div>
+        <div class="polaroid-caption">after. us.</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="article-footer fade-in">
+    <div class="header-divider"></div>
+    <span class="footer-text">"We would do it all again. Every chaotic, exhausting, beautiful second of it."</span>
+    <br><br>
+    <span class="footer-small">S VYASA x UNDER 25 FELLOWSHIP &nbsp;&nbsp; — &nbsp;&nbsp; Made with heart &nbsp;&nbsp; — &nbsp;&nbsp; Memory Archive</span>
+  </footer>
+
+</div>
+
+<script>
+  // Fade in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
